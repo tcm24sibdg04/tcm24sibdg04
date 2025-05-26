@@ -1,4 +1,4 @@
-# C2 Específicações de Requisitos
+# C2: Específicações de Requisitos
 
 ## Quem: 
  Os utilizadores principais do sistema são os funcionários do café, que são responsáveis pelo atendimento aos clientes e pelo registo dos pedidos e ocorrências relacionadas ao consumo e desperdício. 
