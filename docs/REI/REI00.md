@@ -2,7 +2,7 @@
 
 ## Índice
 - [Introdução](REI01.md)
-- [Especificação-de-Requisitos](REI02-md)
+- [Especificação-de-Requisitos](REI02.md)
 - [Esquema-conceptual](REI03.md)
 
 ---
