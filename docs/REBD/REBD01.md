@@ -72,7 +72,7 @@ Níveis de acesso diferenciados: O sistema deve contemplar diferentes perfis de 
 
 Descrição: Contém informações básicas de todos os produtos oferecidos. 
 
-## C2 : Especificações e Requisitos
+# C2 : Especificações e Requisitos
 
 Cada pedido de bebida consome ingredientes específicos, conforme definido numa receita padrão e previamente registada no sistema. 
 O stock de produtos é atualizado automaticamente após o registo de um pedido, garantindo que os dados refletem a realidade operacional em tempo real. 
