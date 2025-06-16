@@ -6,7 +6,7 @@ Desenvolvido pelo Grupo 04: Iris Correia e Nicole Fernandes.
 ---
 
 ## Descrição do Projeto
-
+---
 O objetivo do modelo é criar uma base de dados para controlar rigorosamente o stock de produtos (cafés, leites e xaropes) usados na produção de bebidas num café. A solução regista automaticamente o consumo com base nos pedidos, perdas e desperdícios com os respetivos motivos, e atualiza continuamente o stock disponível. Além disso, gera relatórios periódicos que ajudam na gestão, analisando padrões de consumo, desperdício e necessidades de reposição. O sistema visa melhorar a eficiência operacional, reduzir o desperdício e aumentar a rentabilidade do negócio.
 ---
 
