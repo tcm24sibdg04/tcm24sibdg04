@@ -29,3 +29,7 @@ Além disso, não há necessidade de desnormalizar devido à:
 - Minimização de redundâncias
 - Manutenção do desempenho
 - Simplicidade do sistema
+  
+---
+[< Previous](rebd02.md) | [^ Main](/../../) | [Next >](rebd04.md)
+:--- | :---: | ---: 
