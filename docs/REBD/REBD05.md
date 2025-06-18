@@ -1,6 +1,6 @@
 # C3 : SQL
 
-# DDL
+## DDL
 
 CREATE DATABASE IF NOT EXISTS cafe;
 USE `cafe`;
