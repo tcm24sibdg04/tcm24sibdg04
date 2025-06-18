@@ -12,3 +12,7 @@
 - Pedidos só podem ser atribuídos a turnos válidos e a utilizadores ativos no sistema. 
 - O histórico de consumo, desperdício e stock deve ser permanente, não permitindo eliminação de registos para garantir auditoria e fiabilidade. 
 - O sistema deve gerar relatórios periódicos (diários, semanais e mensais) sobre o consumo de produtos, desperdícios registados e previsões de necessidade de reposição, apoiando a tomada de decisão estratégica. 
+
+
+| [< Previous](REI02.md) | [^ Main](../../README.md) | [Next >](REI03.md) |
+|:----------------------------------:|:----------------------------------:|:----------------------------------:|
