@@ -146,6 +146,39 @@ INSERT INTO Receita (nomeBebida, descricao) VALUES
 ('Affogato', 'Sorvete com café expresso'),
 ('Latte de Mel', 'Latte adoçado com mel'),
 ('Chá de Camomila', 'Chá calmante tradicional');
+
+INSERT INTO Utilizador (nome, perfil, login, senha) VALUES
+('João Silva', 'gestor', 'joaos', 'senha123'),
+('Maria Souza', 'funcionario', 'marias', 'senha123'),
+('Carlos Lima', 'funcionario', 'carlosl', 'senha123'),
+('Ana Paula', 'funcionario', 'anap', 'senha123'),
+('Fernanda Costa', 'funcionario', 'fernandac', 'senha123'),
+('Rafael Dias', 'funcionario', 'rafaeld', 'senha123'),
+('Luciana Alves', 'funcionario', 'lucianaa', 'senha123'),
+('Bruno Rocha', 'funcionario', 'brunor', 'senha123'),
+('Patrícia Melo', 'funcionario', 'patriciam', 'senha123'),
+('Ricardo Martins', 'funcionario', 'ricardom', 'senha123'),
+('Juliana Azevedo', 'funcionario', 'julianaa', 'senha123'),
+('Marcos Vieira', 'funcionario', 'marcosv', 'senha123'),
+('Camila Barbosa', 'funcionario', 'camilab', 'senha123'),
+('Tiago Gomes', 'funcionario', 'tiagog', 'senha123'),
+('Beatriz Ribeiro', 'funcionario', 'beatrizr', 'senha123'),
+('Eduardo Fernandes', 'funcionario', 'eduardof', 'senha123'),
+('Larissa Carvalho', 'funcionario', 'larissac', 'senha123'),
+('André Pereira', 'funcionario', 'andrep', 'senha123'),
+('Isabela Lima', 'funcionario', 'isabelal', 'senha123'),
+('Felipe Santana', 'funcionario', 'felipes', 'senha123'),
+('Natália Duarte', 'funcionario', 'nataliad', 'senha123'),
+('Gabriel Torres', 'funcionario', 'gabrielt', 'senha123'),
+('Renata Monteiro', 'funcionario', 'renatam', 'senha123'),
+('Diego Souza', 'funcionario', 'diegos', 'senha123'),
+('Carolina Lopes', 'funcionario', 'carolinal', 'senha123'),
+('Henrique Alves', 'funcionario', 'henriquea', 'senha123'),
+('Vanessa Rocha', 'funcionario', 'vanessar', 'senha123'),
+('Rodrigo Moura', 'funcionario', 'rodrigom', 'senha123'),
+('Tatiane Freitas', 'funcionario', 'tatianef', 'senha123'),
+('Pedro Henrique', 'funcionario', 'pedroh', 'senha123');
+
 ```
 ---
 [< Previous](REBD04.md) | [^ Main](/../../) | [Next >](REBD00.md)
