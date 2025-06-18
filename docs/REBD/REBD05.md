@@ -79,9 +79,10 @@ CREATE TABLE IngredienteReceita (
     FOREIGN KEY (idProduto) REFERENCES Produto(idProduto)
 );
 ```
-
+---
 ## DML
 
+```sql
 INSERT INTO Produto (nome, tipo, quantidadeStock, unidadeMedida, limiteAlerta) VALUES
 ('Café em Grão', 'Ingrediente', 50.00, 'kg', 10.00),
 ('Leite', 'Ingrediente', 30.00, 'L', 5.00),
@@ -113,7 +114,6 @@ INSERT INTO Produto (nome, tipo, quantidadeStock, unidadeMedida, limiteAlerta) V
 ('Canudo', 'Consumo', 300.00, 'un', 100.00),
 ('Saco de Lixo', 'Consumo', 60.00, 'un', 10.00),
 ('Esponja', 'Consumo', 30.00, 'un', 5.00);
-
 --
 INSERT INTO Receita (nomeBebida, descricao) VALUES
 ('Café Expresso', 'Café curto e forte'),
@@ -146,8 +146,6 @@ INSERT INTO Receita (nomeBebida, descricao) VALUES
 ('Affogato', 'Sorvete com café expresso'),
 ('Latte de Mel', 'Latte adoçado com mel'),
 ('Chá de Camomila', 'Chá calmante tradicional');
-
-
 ```
 ---
 [< Previous](REBD04.md) | [^ Main](/../../) | [Next >](REI00.md)
