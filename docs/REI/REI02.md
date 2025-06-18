@@ -14,5 +14,5 @@
 - O sistema deve gerar relatórios periódicos (diários, semanais e mensais) sobre o consumo de produtos, desperdícios registados e previsões de necessidade de reposição, apoiando a tomada de decisão estratégica. 
 
 
-| [< Previous](REI02.md) | [^ Main](../../README.md) | [Next >](REI03.md) |
+| [< Previous](REI01.md) | [^ Main](../../README.md) | [Next >](REI03.md) |
 |:----------------------------------:|:----------------------------------:|:----------------------------------:|
