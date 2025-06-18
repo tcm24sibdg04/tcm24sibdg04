@@ -31,5 +31,5 @@ Além disso, não há necessidade de desnormalizar devido à:
 - Simplicidade do sistema
   
 ---
-[< Previous](rebd02.md) | [^ Main](/../../) | [Next >](rebd04.md)
+[< Previous](REBD02.md) | [^ Main](/../../) | [Next >](REBD04.md)
 :--- | :---: | ---: 
