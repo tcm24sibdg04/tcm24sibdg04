@@ -1,7 +1,7 @@
 # C2 : Esquema conceptual
 
 ## Modelo E/A
-![Diagrama do Modelo Entidade-Associação](..docs/imagens/diagrama.jpeg)
+![Diagrama do Modelo Entidade-Associação](https://raw.githubusercontent.com/tcm24sibdg04/tcm24sibdg04/refs/heads/main/docs/imagens/diagrama.jpeg)
 
 ## Entidades
 
