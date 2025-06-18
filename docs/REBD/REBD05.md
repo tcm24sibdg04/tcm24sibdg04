@@ -1,5 +1,5 @@
 # C3 : SQL
----
+
 ## DDL
 
 ```sql
@@ -79,7 +79,7 @@ CREATE TABLE IngredienteReceita (
     FOREIGN KEY (idProduto) REFERENCES Produto(idProduto)
 );
 ```
----
+
 ## DML
 
 ```sql
