@@ -78,3 +78,6 @@ CREATE TABLE IngredienteReceita (
     FOREIGN KEY (idReceita) REFERENCES Receita(idReceita),
     FOREIGN KEY (idProduto) REFERENCES Produto(idProduto)
 );
+---
+[< Previous](REBD04.md) | [^ Main](/../../) | [Next >](REID00.md)
+:--- | :---: | ---: 
