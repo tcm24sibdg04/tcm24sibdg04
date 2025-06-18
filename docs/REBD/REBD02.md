@@ -1,7 +1,7 @@
 # C2 : Esquema conceptual
 
 ## Modelo E/A
-![Diagrama do Modelo Entidade-Associação](..imagens/diagrama.jpeg)
+![Diagrama do Modelo Entidade-Associação](..docs/imagens/diagrama.jpeg)
 
 ## Entidades
 
