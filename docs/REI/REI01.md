@@ -72,5 +72,5 @@ Níveis de acesso diferenciados: O sistema deve contemplar diferentes perfis de 
 
 Descrição: Contém informações básicas de todos os produtos oferecidos. 
 
-| [< Previous](REBD00.md) | [^ Main](../../README.md) | [Next >](REBD02.md) |
+| [< Previous](REBD00.md) | [^ Main](../../README.md) | [Next >](REI02.md) |
 |:----------------------------------:|:----------------------------------:|:----------------------------------:|
