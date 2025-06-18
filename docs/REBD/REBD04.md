@@ -271,3 +271,6 @@ JOIN
 JOIN
   UTILIZADOR ON DESPERDICIO.id_utilizador = UTILIZADOR.id;
 ```
+
+---
+[< Previous](REBD03.md) | [^ Main](/../../) | [Next >](REBD05.md)
