@@ -148,5 +148,5 @@ INSERT INTO Receita (nomeBebida, descricao) VALUES
 ('Chá de Camomila', 'Chá calmante tradicional');
 ```
 ---
-[< Previous](REBD04.md) | [^ Main](/../../) | [Next >](REI00.md)
+[< Previous](REBD04.md) | [^ Main](/../../) | [Next >](REBD00.md)
 :--- | :---: | ---: 
