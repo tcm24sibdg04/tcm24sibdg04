@@ -78,6 +78,7 @@ CREATE TABLE IngredienteReceita (
     FOREIGN KEY (idReceita) REFERENCES Receita(idReceita),
     FOREIGN KEY (idProduto) REFERENCES Produto(idProduto)
 );
+```
 
 ## DML
 
