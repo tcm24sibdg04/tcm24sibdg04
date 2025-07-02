@@ -1,0 +1,20 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+tslib_1.__exportStar(require("./ping.controller"), exports);
+tslib_1.__exportStar(require("./utilizador.controller"), exports);
+tslib_1.__exportStar(require("./turno.controller"), exports);
+tslib_1.__exportStar(require("./receita.controller"), exports);
+tslib_1.__exportStar(require("./produto.controller"), exports);
+tslib_1.__exportStar(require("./pedidos.controller"), exports);
+tslib_1.__exportStar(require("./ingrediente-receita.controller"), exports);
+tslib_1.__exportStar(require("./desperdicio.controller"), exports);
+tslib_1.__exportStar(require("./utilizador-desperdicio.controller"), exports);
+tslib_1.__exportStar(require("./utilizador-turno.controller"), exports);
+tslib_1.__exportStar(require("./pedido-utilizador.controller"), exports);
+tslib_1.__exportStar(require("./pedido-turno.controller"), exports);
+tslib_1.__exportStar(require("./desperdicio-produto.controller"), exports);
+tslib_1.__exportStar(require("./pedido-receita.controller"), exports);
+tslib_1.__exportStar(require("./ingrediente-receita-produto.controller"), exports);
+tslib_1.__exportStar(require("./receita-ingrediente-receita.controller"), exports);
+//# sourceMappingURL=index.js.map
