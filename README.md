@@ -1,28 +1,75 @@
 # tcm24sibdg04
 
-Repositório destinado ao projeto de 'Sistemas de Informação e Bases de Dados'.
-Desenvolvido pelo Grupo 04: Iris Correia e Nicole Fernandes.
+This application is generated using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
+[initial project layout](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
 
----
+## Install dependencies
 
-## Descrição do Projeto
+By default, dependencies were installed when this application was generated.
+Whenever dependencies in `package.json` are changed, run the following command:
 
-- O objetivo do modelo é criar uma base de dados para controlar rigorosamente o stock de produtos (cafés, leites e xaropes) usados na produção de bebidas num café. A solução regista automaticamente o consumo com base nos pedidos, perdas e desperdícios com os respetivos motivos, e atualiza continuamente o stock disponível. Além disso, gera relatórios periódicos que ajudam na gestão, analisando padrões de consumo, desperdício e necessidades de reposição. O sistema visa melhorar a eficiência operacional, reduzir o desperdício e aumentar a rentabilidade do negócio.
----
+```sh
+npm install
+```
 
-## Organização do Repositório
+To only install resolved dependencies in `package-lock.json`:
 
-- Relatórios e documentação na pasta [`docs`](./docs)
+```sh
+npm ci
+```
 
----
+## Run the application
 
-## Relatórios
+```sh
+npm start
+```
 
-- [Relatório de Especificação da Informação (REI)](docs/REI)
-- [Relatório de Especificação da Base de Dados (REBD)](docs/REBD)
----
+You can also run `node .` to skip the build step.
 
-## Membros
+Open http://127.0.0.1:3000 in your browser.
 
-- **Iris Correia** - [@irisCorreia](https://github.com/irisCorreia)
-- **Nicole Fernandes** - [@NicoleFernandes11](https://github.com/NicoleFernandes11)
+## Rebuild the project
+
+To incrementally build the project:
+
+```sh
+npm run build
+```
+
+To force a full build by cleaning up cached artifacts:
+
+```sh
+npm run rebuild
+```
+
+## Fix code style and formatting issues
+
+```sh
+npm run lint
+```
+
+To automatically fix such issues:
+
+```sh
+npm run lint:fix
+```
+
+## Other useful commands
+
+- `npm run migrate`: Migrate database schemas for models
+- `npm run openapi-spec`: Generate OpenAPI spec into a file
+- `npm run docker:build`: Build a Docker image for this application
+- `npm run docker:run`: Run this application inside a Docker container
+
+## Tests
+
+```sh
+npm test
+```
+
+## What's next
+
+Please check out [LoopBack 4 documentation](https://loopback.io/doc/en/lb4/) to
+understand how you can continue to add features to this application.
+
+[![LoopBack](https://github.com/loopbackio/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png)](http://loopback.io/)
