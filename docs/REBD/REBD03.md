@@ -1,35 +1,65 @@
 # C3: Normalização
 
-CATEGORIA
-| id |   | nome |
-| -- | - | ---- |
+**Grupo:** tcm24sibdg04  
+**Autor:** Iris Correia ([irisCorreia](https://github.com/irisCorreia))
 
-PRODUTO
-| id |   | stock | nome\_modelo | preco | data | descricao | id\_categoria → CATEGORIA |
-| -- | - | ----- | ------------ | ----- | ---- | --------- | ------------------------- |
+---
 
-STOCK
-| id\_produto → PRODUTO | quantidade\_disponivel | status |
-| --------------------- | ---------------------- | ------ |
+## Tabelas Principais
 
-PEDIDO
-| id |   | data | id\_produto → PRODUTO | quantidade\_usada |
-| -- | - | ---- | --------------------- | ----------------- |
+### PRODUTO
+| id_produto (PK) | nome         | tipo    | unidade_medida | stock_atual | stock_minimo |
+|-----------------|--------------|---------|---------------|-------------|-------------|
 
-DESPERDICIO
-| id |   | data | id\_produto → PRODUTO | quantidade\_perdida | motivo |
-| -- | - | ---- | --------------------- | ------------------- | ------ |
+### FORNECEDOR
+| id_fornecedor (PK) | nome         | contacto      |
+|--------------------|--------------|---------------|
 
-# Normalização do Esquema Relacional
+### PEDIDO
+| id_pedido (PK) | data       | total    |
+|----------------|------------|----------|
 
-Não é necessário proceder à normalização da base de dados, pois todas as tabelas já se encontram na 3ª Forma Normal (3NF).
+### ITEMPEDIDO
+| id_item (PK) | id_pedido (FK) | id_produto (FK) | quantidade |
+|--------------|----------------|-----------------|------------|
+
+### PERDA
+| id_perda (PK) | id_produto (FK) | data       | quantidade | id_motivo (FK) |
+|---------------|-----------------|------------|------------|----------------|
+
+### MOTIVOPERDA
+| id_motivo (PK) | descricao      |
+|----------------|---------------|
+
+### REPOSICAO
+| id_reposicao (PK) | id_produto (FK) | id_fornecedor (FK) | data       | quantidade |
+|-------------------|-----------------|--------------------|------------|------------|
+
+---
+
+## Normalização do Esquema Relacional
+
+### Primeira Forma Normal (1NF)
+- Todas as tabelas têm atributos atómicos (sem repetições ou grupos de atributos).
+- Cada campo contém apenas um valor por registo.
+
+### Segunda Forma Normal (2NF)
+- Todas as tabelas estão na 1NF.
+- Todos os atributos não-chave dependem da chave primária completa (aplicável a tabelas com chaves compostas, como ITEMPEDIDO).
+
+### Terceira Forma Normal (3NF)
+- Todas as tabelas estão na 2NF.
+- Não existem dependências transitivas: todos os atributos não-chave dependem apenas da chave primária.
+
+**Conclusão:**  
+Não é necessário proceder a mais normalização, pois todas as tabelas já se encontram na 3ª Forma Normal (3NF).  
 Além disso, não há necessidade de desnormalizar devido à:
-
 - Garantia da integridade dos dados
 - Minimização de redundâncias
 - Manutenção do desempenho
 - Simplicidade do sistema
-  
+
 ---
-[< Previous](REBD02.md) | [^ Main](/../../) | [Next >](REBD04.md)
+
+[< Previous](REBD02.md) | [^ Main](../../README.md) | [Next >](REBD04.md)
 :--- | :---: | ---: 
