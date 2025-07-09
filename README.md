@@ -58,8 +58,8 @@ Este projeto consiste numa solução de base de dados e API REST para o controlo
 
 ## Documentação
 
-- [Relatório de Especificação da Informação (REI)](docs/REI00.md)
-- [Relatório de Especificação da Base de Dados (REBD)](docs/REBD00.md)
+- [Relatório de Especificação da Informação (REI)](docs/REI)
+- [Relatório de Especificação da Base de Dados (REBD)](docs/REBD)
 
 ---
 
