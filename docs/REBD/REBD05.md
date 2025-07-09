@@ -1,185 +1,158 @@
-# C3 : SQL
+# C5 : SQL
+
+**Grupo:** tcm24sibdg04  
+**Autor:** Iris Correia ([irisCorreia](https://github.com/irisCorreia))
+
+---
 
 ## DDL
 
 ```sql
-CREATE DATABASE IF NOT EXISTS cafe;
-USE cafe;
+CREATE DATABASE IF NOT EXISTS tcm24sibdg04;
+USE tcm24sibdg04;
 
 -- Drop tables if they exist
-DROP TABLE IF EXISTS Produto;
-DROP TABLE IF EXISTS Receita;
-DROP TABLE IF EXISTS Utilizador;
-DROP TABLE IF EXISTS Turno;
+DROP TABLE IF EXISTS Reposicao;
+DROP TABLE IF EXISTS Perda;
+DROP TABLE IF EXISTS MotivoPerda;
+DROP TABLE IF EXISTS ItemPedido;
 DROP TABLE IF EXISTS Pedido;
-DROP TABLE IF EXISTS Desperdicio;
-DROP TABLE IF EXISTS IngredienteReceita;
+DROP TABLE IF EXISTS Fornecedor;
+DROP TABLE IF EXISTS Produto;
 
 -- Create tables
 CREATE TABLE Produto (
-    idProduto INT PRIMARY KEY AUTO_INCREMENT,
+    id_produto INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    tipo VARCHAR(50),
-    quantidadeStock DECIMAL(10,2) NOT NULL DEFAULT 0,
-    unidadeMedida VARCHAR(20),
-    limiteAlerta DECIMAL(10,2) NOT NULL DEFAULT 10
+    tipo ENUM('café', 'leite', 'xarope') NOT NULL,
+    unidade_medida VARCHAR(20) NOT NULL,
+    stock_atual INT NOT NULL DEFAULT 0,
+    stock_minimo INT NOT NULL DEFAULT 0
 );
 
-CREATE TABLE Receita (
-    idReceita INT PRIMARY KEY AUTO_INCREMENT,
-    nomeBebida VARCHAR(100) NOT NULL,
-    descricao TEXT
-);
-
-CREATE TABLE Utilizador (
-    idFuncionario INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE Fornecedor (
+    id_fornecedor INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    perfil ENUM('gestor', 'funcionario') NOT NULL,
-    login VARCHAR(50) UNIQUE NOT NULL,
-    senha VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE Turno (
-    idTurno INT PRIMARY KEY AUTO_INCREMENT,
-    data DATE NOT NULL,
-    horaInicio TIME NOT NULL,
-    horaFim TIME NOT NULL,
-    idResponsavel INT,
-    FOREIGN KEY (idResponsavel) REFERENCES Utilizador(idFuncionario)
+    contacto VARCHAR(100)
 );
 
 CREATE TABLE Pedido (
-    idPedido INT PRIMARY KEY AUTO_INCREMENT,
-    dataHora DATETIME NOT NULL,
-    idReceita INT NOT NULL,
-    idFuncionario INT NOT NULL,
-    idTurno INT NOT NULL,
-    FOREIGN KEY (idReceita) REFERENCES Receita(idReceita),
-    FOREIGN KEY (idFuncionario) REFERENCES Utilizador(idFuncionario),
-    FOREIGN KEY (idTurno) REFERENCES Turno(idTurno)
+    id_pedido INT AUTO_INCREMENT PRIMARY KEY,
+    data DATETIME NOT NULL,
+    total DECIMAL(10,2) NOT NULL
 );
 
-CREATE TABLE Desperdicio (
-    idDesperdicio INT PRIMARY KEY AUTO_INCREMENT,
-    dataHora DATETIME NOT NULL,
-    quantidade DECIMAL(10,2) NOT NULL CHECK (quantidade >= 0),
-    motivo TEXT NOT NULL,
-    idProduto INT NOT NULL,
-    idFuncionario INT NOT NULL,
-    FOREIGN KEY (idProduto) REFERENCES Produto(idProduto),
-    FOREIGN KEY (idFuncionario) REFERENCES Utilizador(idFuncionario)
+CREATE TABLE ItemPedido (
+    id_item INT AUTO_INCREMENT PRIMARY KEY,
+    id_pedido INT NOT NULL,
+    id_produto INT NOT NULL,
+    quantidade INT NOT NULL,
+    FOREIGN KEY (id_pedido) REFERENCES Pedido(id_pedido),
+    FOREIGN KEY (id_produto) REFERENCES Produto(id_produto)
 );
 
-CREATE TABLE IngredienteReceita (
-    idReceita INT,
-    idProduto INT,
-    quantidadeUtilizada DECIMAL(10,2) NOT NULL CHECK (quantidadeUtilizada > 0),
-    PRIMARY KEY (idReceita, idProduto),
-    FOREIGN KEY (idReceita) REFERENCES Receita(idReceita),
-    FOREIGN KEY (idProduto) REFERENCES Produto(idProduto)
+CREATE TABLE MotivoPerda (
+    id_motivo INT AUTO_INCREMENT PRIMARY KEY,
+    descricao VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Perda (
+    id_perda INT AUTO_INCREMENT PRIMARY KEY,
+    id_produto INT NOT NULL,
+    data DATETIME NOT NULL,
+    quantidade INT NOT NULL,
+    id_motivo INT NOT NULL,
+    FOREIGN KEY (id_produto) REFERENCES Produto(id_produto),
+    FOREIGN KEY (id_motivo) REFERENCES MotivoPerda(id_motivo)
+);
+
+CREATE TABLE Reposicao (
+    id_reposicao INT AUTO_INCREMENT PRIMARY KEY,
+    id_produto INT NOT NULL,
+    id_fornecedor INT NOT NULL,
+    data DATETIME NOT NULL,
+    quantidade INT NOT NULL,
+    FOREIGN KEY (id_produto) REFERENCES Produto(id_produto),
+    FOREIGN KEY (id_fornecedor) REFERENCES Fornecedor(id_fornecedor)
 );
 ```
+
+---
 
 ## DML
 
 ```sql
-INSERT INTO Produto (nome, tipo, quantidadeStock, unidadeMedida, limiteAlerta) VALUES
-('Café em Grão', 'Ingrediente', 50.00, 'kg', 10.00),
-('Leite', 'Ingrediente', 30.00, 'L', 5.00),
-('Açúcar', 'Ingrediente', 20.00, 'kg', 3.00),
-('Canela', 'Ingrediente', 5.00, 'kg', 1.00),
-('Chocolate', 'Ingrediente', 10.00, 'kg', 2.00),
-('Chá Preto', 'Ingrediente', 15.00, 'kg', 3.00),
-('Chá Verde', 'Ingrediente', 12.00, 'kg', 3.00),
-('Mel', 'Ingrediente', 8.00, 'kg', 2.00),
-('Limão', 'Ingrediente', 25.00, 'kg', 5.00),
-('Água', 'Ingrediente', 100.00, 'L', 20.00),
-('Copos', 'Consumo', 200.00, 'un', 50.00),
-('Tampas', 'Consumo', 180.00, 'un', 50.00),
-('Guardanapos', 'Consumo', 500.00, 'un', 100.00),
-('Café Solúvel', 'Ingrediente', 10.00, 'kg', 2.00),
-('Creme de Leite', 'Ingrediente', 7.00, 'L', 1.50),
-('Baunilha', 'Ingrediente', 3.00, 'kg', 0.50),
-('Caramelo', 'Ingrediente', 4.00, 'kg', 1.00),
-('Essência de Amêndoas', 'Ingrediente', 1.00, 'kg', 0.20),
-('Morango', 'Ingrediente', 6.00, 'kg', 1.50),
-('Biscoito', 'Consumo', 100.00, 'un', 20.00),
-('Papel Toalha', 'Consumo', 50.00, 'un', 10.00),
-('Copo Térmico', 'Consumo', 80.00, 'un', 15.00),
-('Xarope de Menta', 'Ingrediente', 2.00, 'L', 0.50),
-('Noz Moscada', 'Ingrediente', 0.50, 'kg', 0.10),
-('Gelo', 'Ingrediente', 200.00, 'kg', 30.00),
-('Café Descafeinado', 'Ingrediente', 9.00, 'kg', 2.00),
-('Creme Chantilly', 'Ingrediente', 3.00, 'kg', 1.00),
-('Canudo', 'Consumo', 300.00, 'un', 100.00),
-('Saco de Lixo', 'Consumo', 60.00, 'un', 10.00),
-('Esponja', 'Consumo', 30.00, 'un', 5.00);
---
-INSERT INTO Receita (nomeBebida, descricao) VALUES
-('Café Expresso', 'Café curto e forte'),
-('Cappuccino', 'Café com leite vaporizado e espuma'),
-('Latte', 'Café com bastante leite'),
-('Mocha', 'Café com leite e chocolate'),
-('Chá Preto com Limão', 'Chá preto com limão fresco'),
-('Chá Verde com Mel', 'Chá verde adoçado com mel'),
-('Café Gelado', 'Café servido com gelo'),
-('Café Descafeinado', 'Café sem cafeína'),
-('Chocolate Quente', 'Bebida quente com chocolate e leite'),
-('Latte Baunilha', 'Latte com essência de baunilha'),
-('Latte Caramelo', 'Latte com calda de caramelo'),
-('Chá de Hibisco', 'Chá de hibisco natural'),
-('Café com Canela', 'Café com toque de canela'),
-('Café com Chantilly', 'Café finalizado com chantilly'),
-('Café Americano', 'Café mais diluído'),
-('Espresso Duplo', 'Dose dupla de expresso'),
-('Matcha Latte', 'Bebida de chá verde em pó e leite'),
-('Café com Leite Condensado', 'Café adocicado com leite condensado'),
-('Café Vienense', 'Café com chantilly e canela'),
-('Frappuccino', 'Café gelado com creme e sabor'),
-('Chá Mate', 'Chá mate natural'),
-('Chá de Frutas Vermelhas', 'Chá adoçado de frutas'),
-('Smoothie de Morango', 'Morango com leite e mel'),
-('Café com Noz Moscada', 'Café com especiarias'),
-('Latte de Amêndoas', 'Leite de amêndoas com café'),
-('Latte Gelado', 'Latte com gelo'),
-('Chá com Menta', 'Chá gelado com menta'),
-('Affogato', 'Sorvete com café expresso'),
-('Latte de Mel', 'Latte adoçado com mel'),
-('Chá de Camomila', 'Chá calmante tradicional');
+-- Inserir produtos de exemplo
+INSERT INTO Produto (nome, tipo, unidade_medida, stock_atual, stock_minimo) VALUES
+('Café Expresso', 'café', 'ml', 1000, 200),
+('Café Descafeinado', 'café', 'ml', 800, 150),
+('Café Latte', 'café', 'ml', 1200, 250),
+('Leite Meio-Gordo', 'leite', 'ml', 2000, 500),
+('Leite Magro', 'leite', 'ml', 1500, 400),
+('Leite de Soja', 'leite', 'ml', 1000, 300),
+('Xarope de Baunilha', 'xarope', 'ml', 500, 100),
+('Xarope de Caramelo', 'xarope', 'ml', 600, 120),
+('Xarope de Avelã', 'xarope', 'ml', 400, 80),
+('Café Moído', 'café', 'g', 3000, 500),
+('Café em Grão', 'café', 'g', 2500, 400),
+('Leite de Amêndoa', 'leite', 'ml', 900, 200),
+('Xarope de Chocolate', 'xarope', 'ml', 700, 150),
+('Café Solúvel', 'café', 'g', 600, 100),
+('Leite Condensado', 'leite', 'ml', 300, 50),
+('Xarope de Menta', 'xarope', 'ml', 350, 70),
+('Café Arábica', 'café', 'g', 1200, 300),
+('Café Robusta', 'café', 'g', 1100, 250),
+('Leite Integral', 'leite', 'ml', 1800, 400),
+('Leite Sem Lactose', 'leite', 'ml', 1000, 200),
+('Xarope de Morango', 'xarope', 'ml', 450, 90),
+('Xarope de Framboesa', 'xarope', 'ml', 300, 60),
+('Café Orgânico', 'café', 'g', 900, 200),
+('Leite de Aveia', 'leite', 'ml', 800, 150),
+('Xarope de Coco', 'xarope', 'ml', 200, 40),
+('Café Gourmet', 'café', 'g', 700, 120),
+('Leite de Caju', 'leite', 'ml', 500, 100),
+('Xarope de Limão', 'xarope', 'ml', 250, 50),
+('Café Turco', 'café', 'g', 400, 80),
+('Leite de Arroz', 'leite', 'ml', 600, 120);
 
-INSERT INTO Utilizador (nome, perfil, login, senha) VALUES
-('João Silva', 'gestor', 'joaos', 'senha123'),
-('Maria Souza', 'funcionario', 'marias', 'senha123'),
-('Carlos Lima', 'funcionario', 'carlosl', 'senha123'),
-('Ana Paula', 'funcionario', 'anap', 'senha123'),
-('Fernanda Costa', 'funcionario', 'fernandac', 'senha123'),
-('Rafael Dias', 'funcionario', 'rafaeld', 'senha123'),
-('Luciana Alves', 'funcionario', 'lucianaa', 'senha123'),
-('Bruno Rocha', 'funcionario', 'brunor', 'senha123'),
-('Patrícia Melo', 'funcionario', 'patriciam', 'senha123'),
-('Ricardo Martins', 'funcionario', 'ricardom', 'senha123'),
-('Juliana Azevedo', 'funcionario', 'julianaa', 'senha123'),
-('Marcos Vieira', 'funcionario', 'marcosv', 'senha123'),
-('Camila Barbosa', 'funcionario', 'camilab', 'senha123'),
-('Tiago Gomes', 'funcionario', 'tiagog', 'senha123'),
-('Beatriz Ribeiro', 'funcionario', 'beatrizr', 'senha123'),
-('Eduardo Fernandes', 'funcionario', 'eduardof', 'senha123'),
-('Larissa Carvalho', 'funcionario', 'larissac', 'senha123'),
-('André Pereira', 'funcionario', 'andrep', 'senha123'),
-('Isabela Lima', 'funcionario', 'isabelal', 'senha123'),
-('Felipe Santana', 'funcionario', 'felipes', 'senha123'),
-('Natália Duarte', 'funcionario', 'nataliad', 'senha123'),
-('Gabriel Torres', 'funcionario', 'gabrielt', 'senha123'),
-('Renata Monteiro', 'funcionario', 'renatam', 'senha123'),
-('Diego Souza', 'funcionario', 'diegos', 'senha123'),
-('Carolina Lopes', 'funcionario', 'carolinal', 'senha123'),
-('Henrique Alves', 'funcionario', 'henriquea', 'senha123'),
-('Vanessa Rocha', 'funcionario', 'vanessar', 'senha123'),
-('Rodrigo Moura', 'funcionario', 'rodrigom', 'senha123'),
-('Tatiane Freitas', 'funcionario', 'tatianef', 'senha123'),
-('Pedro Henrique', 'funcionario', 'pedroh', 'senha123');
+-- Inserir fornecedores de exemplo
+INSERT INTO Fornecedor (nome, contacto) VALUES
+('Fornecedor A', 'fornecedorA@email.com'),
+('Fornecedor B', 'fornecedorB@email.com'),
+('Fornecedor C', 'fornecedorC@email.com');
 
+-- Inserir motivos de perda
+INSERT INTO MotivoPerda (descricao) VALUES
+('Derrame'),
+('Validade Expirada'),
+('Erro de Produção'),
+('Quebra de Embalagem'),
+('Consumo Interno');
+
+-- Inserir pedidos de exemplo
+INSERT INTO Pedido (data, total) VALUES
+('2024-06-01 10:00:00', 12.50),
+('2024-06-01 11:00:00', 8.00);
+
+-- Inserir itens de pedido
+INSERT INTO ItemPedido (id_pedido, id_produto, quantidade) VALUES
+(1, 1, 2),
+(1, 4, 1),
+(2, 2, 1),
+(2, 5, 1);
+
+-- Inserir perdas
+INSERT INTO Perda (id_produto, data, quantidade, id_motivo) VALUES
+(1, '2024-06-01 12:00:00', 10, 1),
+(4, '2024-06-01 13:00:00', 20, 2);
+
+-- Inserir reposições
+INSERT INTO Reposicao (id_produto, id_fornecedor, data, quantidade) VALUES
+(1, 1, '2024-06-01 09:00:00', 500),
+(4, 2, '2024-06-01 09:30:00', 1000);
 ```
+
 ---
-[< Previous](REBD04.md) | [^ Main](/../../) | [Next >](REBD00.md)
+
+[< Previous](REBD04.md) | [^ Main](../../README.md) | [Next >](REBD00.md)
 :--- | :---: | ---: 
