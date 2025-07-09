@@ -1,17 +1,24 @@
-# C4 : Esquema Relacional  <!-- omit in toc -->
+# C4 : Esquema Relacional
+
+**Grupo:** tcm24sibdg04  
+**Autor:** Iris Correia ([irisCorreia](https://github.com/irisCorreia))
+
+---
 
 - [Relações](#relações)
   - [PRODUTO](#produto)
-  - [RECEITA](#receita)
-  - [UTILIZADOR](#utilizador)
+  - [FORNECEDOR](#fornecedor)
   - [PEDIDO](#pedido)
-  - [DESPERDICIO](#desperdicio)
-  - [TURNO](#turno)
-  - [INGREDIENTERECEITA](#ingredientereceita)
+  - [ITEMPEDIDO](#itempedido)
+  - [PERDA](#perda)
+  - [MOTIVOPERDA](#motivoperda)
+  - [REPOSICAO](#reposicao)
 - [Vistas](#vistas)
-  - [vista_consumo_por_receita](#vista_consumo_por_receita)
-  - [vista_pedidos_por_turno](#vista_pedidos_por_turno)
-  - [vista_desperdicios_detalhados](#vista_desperdicios_detalhados)
+  - [produtos_abaixo_minimo](#produtos_abaixo_minimo)
+  - [consumo_por_produto](#consumo_por_produto)
+  - [desperdicio_por_produto](#desperdicio_por_produto)
+
+---
 
 ## Relações
 
@@ -20,257 +27,144 @@
 **Descrição:**  
 Tabela que armazena os produtos utilizados no café, com stock e unidade de medida.
 
-**Colunas:**
-
-| Nome           | Descrição                  | Domínio       | Default | Automático | Nulo |
-|----------------|----------------------------|---------------|---------|------------|------|
-| id             | Identificador do produto   | BIGINT        | -       | Sim        | Não  |
-| nome           | Nome do produto            | VARCHAR(100)  | -       | Não        | Não  |
-| tipo           | Tipo de produto (ex: café, leite, xarope) | VARCHAR(50)  | -       | Não        | Não  |
-| quantidadeStock| Quantidade em stock        | DECIMAL(10,2) | 0       | Não        | Não  |
-| unidadeMedida  | Unidade de medida (ex: kg, l, unidade) | VARCHAR(20) | - | Não | Não |
-| limiteAlerta   | Limite para alerta de stock| DECIMAL(10,2) | 10      | Não        | Não  |
-
-**Restrições de Integridade:**
-
-- **Chave Primária:**  
-  - id
-
-- **Unicidade:**
-
-| Nome               | Coluna(s) | Indexar |
-|--------------------|-----------|---------|
-| produto_nome_unique | nome      | Sim     |
+| Nome           | Tipo           | PK | FK | Nulo | Default | Extra         |
+|----------------|----------------|----|----|------|---------|---------------|
+| id_produto     | INT            | ✔  |    | Não  |         | AUTO_INCREMENT|
+| nome           | VARCHAR(100)   |    |    | Não  |         |               |
+| tipo           | ENUM           |    |    | Não  |         | ('café','leite','xarope') |
+| unidade_medida | VARCHAR(20)    |    |    | Não  |         |               |
+| stock_atual    | INT            |    |    | Não  | 0       |               |
+| stock_minimo   | INT            |    |    | Não  | 0       |               |
 
 ---
 
-### RECEITA
+### FORNECEDOR
 
 **Descrição:**  
-Tabela que representa as receitas das bebidas, associando o nome e descrição.
+Tabela dos fornecedores de produtos.
 
-**Colunas:**
-
-| Nome       | Descrição             | Domínio      | Default | Automático | Nulo |
-|------------|-----------------------|--------------|---------|------------|------|
-| id         | Identificador da receita | BIGINT     | -       | Sim        | Não  |
-| nomeBebida | Nome da bebida         | VARCHAR(100) | -       | Não        | Não  |
-| descricao  | Descrição da receita   | TEXT         | -       | Não        | Sim  |
-
-**Restrições de Integridade:**
-
-- **Chave Primária:**  
-  - id
-
----
-
-### UTILIZADOR
-
-**Descrição:**  
-Tabela dos funcionários que operam o sistema.
-
-**Colunas:**
-
-| Nome    | Descrição                  | Domínio      | Default | Automático | Nulo |
-|---------|----------------------------|--------------|---------|------------|------|
-| id      | Identificador do utilizador| BIGINT       | -       | Sim        | Não  |
-| nome    | Nome do funcionário        | VARCHAR(100) | -       | Não        | Não  |
-| perfil  | Perfil de acesso (gestor, funcionário) | VARCHAR(50) | - | Não | Não |
-| login   | Nome de login              | VARCHAR(50)  | -       | Não        | Não  |
-| senha   | Palavra-passe encriptada   | VARCHAR(255) | -       | Não        | Não  |
-
-**Restrições de Integridade:**
-
-- **Chave Primária:**  
-  - id
+| Nome           | Tipo           | PK | FK | Nulo | Default | Extra         |
+|----------------|----------------|----|----|------|---------|---------------|
+| id_fornecedor  | INT            | ✔  |    | Não  |         | AUTO_INCREMENT|
+| nome           | VARCHAR(100)   |    |    | Não  |         |               |
+| contacto       | VARCHAR(100)   |    |    | Sim  |         |               |
 
 ---
 
 ### PEDIDO
 
 **Descrição:**  
-Registo dos pedidos efetuados pelos clientes, associados a receitas, utilizadores e turnos.
+Registo dos pedidos efetuados.
 
-**Colunas:**
-
-| Nome       | Descrição              | Domínio    | Default | Automático | Nulo |
-|------------|------------------------|------------|---------|------------|------|
-| id         | Identificador do pedido| BIGINT     | -       | Sim        | Não  |
-| dataHora   | Data e hora do pedido  | TIMESTAMP  | now()   | Não        | Não  |
-| id_receita | Receita pedida         | BIGINT     | -       | Não        | Não  |
-| id_utilizador | Funcionário que registou | BIGINT  | -       | Não        | Não  |
-| id_turno   | Turno em que ocorreu   | BIGINT     | -       | Não        | Não  |
-
-**Restrições de Integridade:**
-
-- **Chave Primária:**  
-  - id
-
-- **Chaves Estrangeiras:**
-
-| Nome                | Coluna(s)       | Tabela Referenciada | Coluna(s) Referenciada(s) | Indexar |
-|---------------------|-----------------|---------------------|---------------------------|---------|
-| pedido_receita_fk   | id_receita       | RECEITA             | id                        | Não     |
-| pedido_utilizador_fk| id_utilizador    | UTILIZADOR          | id                        | Não     |
-| pedido_turno_fk     | id_turno        | TURNO               | id                        | Não     |
+| Nome           | Tipo           | PK | FK | Nulo | Default | Extra         |
+|----------------|----------------|----|----|------|---------|---------------|
+| id_pedido      | INT            | ✔  |    | Não  |         | AUTO_INCREMENT|
+| data           | DATETIME       |    |    | Não  |         |               |
+| total          | DECIMAL(10,2)  |    |    | Não  |         |               |
 
 ---
 
-### DESPERDICIO
+### ITEMPEDIDO
 
 **Descrição:**  
-Registo de desperdícios ocorridos, incluindo quantidade, motivo e responsável.
+Itens de cada pedido, associando produtos e quantidades.
 
-**Colunas:**
-
-| Nome        | Descrição                   | Domínio      | Default | Automático | Nulo |
-|-------------|-----------------------------|--------------|---------|------------|------|
-| id          | Identificador do desperdício| BIGINT       | -       | Sim        | Não  |
-| dataHora    | Data e hora do registo      | TIMESTAMP    | now()   | Não        | Não  |
-| quantidade  | Quantidade desperdiçada     | DECIMAL(10,2)| -       | Não        | Não  |
-| motivo      | Motivo do desperdício       | VARCHAR(255) | -       | Não        | Não  |
-| id_utilizador | Funcionário responsável    | BIGINT       | -       | Não        | Não  |
-| id_produto  | Produto associado           | BIGINT       | -       | Não        | Não  |
-
-**Restrições de Integridade:**
-
-- **Chave Primária:**  
-  - id
-
-- **Chaves Estrangeiras:**
-
-| Nome                | Coluna(s)       | Tabela Referenciada | Coluna(s) Referenciada(s) | Indexar |
-|---------------------|-----------------|---------------------|---------------------------|---------|
-| desperdicio_utilizador_fk | id_utilizador | UTILIZADOR          | id                        | Não     |
-| desperdicio_produto_fk    | id_produto    | PRODUTO             | id                        | Não     |
+| Nome           | Tipo           | PK | FK | Nulo | Default | Extra         |
+|----------------|----------------|----|----|------|---------|---------------|
+| id_item        | INT            | ✔  |    | Não  |         | AUTO_INCREMENT|
+| id_pedido      | INT            |    | ✔  | Não  |         |               |
+| id_produto     | INT            |    | ✔  | Não  |         |               |
+| quantidade     | INT            |    |    | Não  |         |               |
 
 ---
 
-### TURNO
+### PERDA
 
 **Descrição:**  
-Turnos de trabalho para associação de pedidos.
+Registo de perdas/desperdícios de produtos.
 
-**Colunas:**
-
-| Nome       | Descrição          | Domínio    | Default | Automático | Nulo |
-|------------|--------------------|------------|---------|------------|------|
-| id         | Identificador do turno | BIGINT  | -       | Sim        | Não  |
-| data       | Data do turno       | DATE       | -       | Não        | Não  |
-| horaInicio | Hora de início      | TIME       | -       | Não        | Não  |
-| horaFim    | Hora de fim         | TIME       | -       | Não        | Não  |
-
-**Restrições de Integridade:**
-
-- **Chave Primária:**  
-  - id
+| Nome           | Tipo           | PK | FK | Nulo | Default | Extra         |
+|----------------|----------------|----|----|------|---------|---------------|
+| id_perda       | INT            | ✔  |    | Não  |         | AUTO_INCREMENT|
+| id_produto     | INT            |    | ✔  | Não  |         |               |
+| data           | DATETIME       |    |    | Não  |         |               |
+| quantidade     | INT            |    |    | Não  |         |               |
+| id_motivo      | INT            |    | ✔  | Não  |         |               |
 
 ---
 
-### INGREDIENTERECEITA
+### MOTIVOPERDA
 
 **Descrição:**  
-Tabela associativa que indica os ingredientes (produtos) usados em cada receita e a quantidade usada.
+Motivos possíveis para perdas/desperdícios.
 
-**Colunas:**
+| Nome           | Tipo           | PK | FK | Nulo | Default | Extra         |
+|----------------|----------------|----|----|------|---------|---------------|
+| id_motivo      | INT            | ✔  |    | Não  |         | AUTO_INCREMENT|
+| descricao      | VARCHAR(100)   |    |    | Não  |         |               |
 
-| Nome          | Descrição                 | Domínio       | Default | Automático | Nulo |
-|---------------|---------------------------|---------------|---------|------------|------|
-| id_receita    | Receita associada          | BIGINT        | -       | Não        | Não  |
-| id_produto    | Produto ingrediente       | BIGINT        | -       | Não        | Não  |
-| quantidadeUtilizada | Quantidade do ingrediente| DECIMAL(10,2) | -       | Não        | Não  |
+---
 
-**Restrições de Integridade:**
+### REPOSICAO
 
-- **Chave Primária:**  
-  - id_receita, id_produto
+**Descrição:**  
+Registo de reposições de produtos.
 
-- **Chaves Estrangeiras:**
-
-| Nome                      | Coluna(s)     | Tabela Referenciada | Coluna(s) Referenciada(s) | Indexar |
-|---------------------------|---------------|---------------------|---------------------------|---------|
-| ingredientereceita_receita_fk | id_receita | RECEITA             | id                        | Não     |
-| ingredientereceita_produto_fk | id_produto | PRODUTO             | id                        | Não     |
+| Nome           | Tipo           | PK | FK | Nulo | Default | Extra         |
+|----------------|----------------|----|----|------|---------|---------------|
+| id_reposicao   | INT            | ✔  |    | Não  |         | AUTO_INCREMENT|
+| id_produto     | INT            |    | ✔  | Não  |         |               |
+| id_fornecedor  | INT            |    | ✔  | Não  |         |               |
+| data           | DATETIME       |    |    | Não  |         |               |
+| quantidade     | INT            |    |    | Não  |         |               |
 
 ---
 
 ## Vistas
 
----
-
-### `vista_consumo_por_receita`
+### produtos_abaixo_minimo
 
 **Descrição:**  
-Lista o consumo total de cada ingrediente por receita.
+Lista todos os produtos cujo stock atual está abaixo do stock mínimo.
 
 ```sql
-CREATE VIEW vista_consumo_por_receita AS
-SELECT 
-  RECEITA.nomeBebida,
-  PRODUTO.nome AS ingrediente,
-  INGREDIENTERECEITA.quantidadeUtilizada,
-  PRODUTO.unidadeMedida
-FROM 
-  INGREDIENTERECEITA
-JOIN 
-  RECEITA ON INGREDIENTERECEITA.id_receita = RECEITA.id
-JOIN 
-  PRODUTO ON INGREDIENTERECEITA.id_produto = PRODUTO.id;
-````
-
----
-
-###
-
-
-`vista_pedidos_por_turno`
-
-**Descrição:**
-Lista pedidos efetuados em cada turno com informação do funcionário e receita.
-
-```sql
-CREATE VIEW vista_pedidos_por_turno AS
-SELECT
-  PEDIDO.id,
-  PEDIDO.dataHora,
-  RECEITA.nomeBebida,
-  UTILIZADOR.nome AS funcionario,
-  TURNO.data,
-  TURNO.horaInicio,
-  TURNO.horaFim
-FROM
-  PEDIDO
-JOIN
-  RECEITA ON PEDIDO.id_receita = RECEITA.id
-JOIN
-  UTILIZADOR ON PEDIDO.id_utilizador = UTILIZADOR.id
-JOIN
-  TURNO ON PEDIDO.id_turno = TURNO.id;
+CREATE VIEW produtos_abaixo_minimo AS
+SELECT nome, tipo, stock_atual, stock_minimo
+FROM Produto
+WHERE stock_atual < stock_minimo;
 ```
 
 ---
 
-### `vista_desperdicios_detalhados`
+### consumo_por_produto
 
-**Descrição:**
-Lista desperdícios detalhados com produto, quantidade, motivo e funcionário responsável.
+**Descrição:**  
+Mostra o consumo total de cada produto em todos os pedidos.
 
 ```sql
-CREATE VIEW vista_desperdicios_detalhados AS
-SELECT
-  DESPERDICIO.id,
-  DESPERDICIO.dataHora,
-  PRODUTO.nome AS produto,
-  DESPERDICIO.quantidade,
-  DESPERDICIO.motivo,
-  UTILIZADOR.nome AS funcionario
-FROM
-  DESPERDICIO
-JOIN
-  PRODUTO ON DESPERDICIO.id_produto = PRODUTO.id
-JOIN
-  UTILIZADOR ON DESPERDICIO.id_utilizador = UTILIZADOR.id;
+CREATE VIEW consumo_por_produto AS
+SELECT p.nome, SUM(i.quantidade) AS total_consumido
+FROM Produto p
+JOIN ItemPedido i ON p.id_produto = i.id_produto
+GROUP BY p.nome;
 ```
+
 ---
-[< Previous](REBD03.md) | [^ Main](/../../) | [Next >](REBD05.md)
+
+### desperdicio_por_produto
+
+**Descrição:**  
+Mostra o desperdício total de cada produto.
+
+```sql
+CREATE VIEW desperdicio_por_produto AS
+SELECT p.nome, SUM(per.quantidade) AS total_desperdicado
+FROM Produto p
+JOIN Perda per ON p.id_produto = per.id_produto
+GROUP BY p.nome;
+```
+
+---
+
+[< Previous](REBD03.md) | [^ Main](../../README.md) | [Next >](REBD05.md)
 :--- | :---: | ---: 
